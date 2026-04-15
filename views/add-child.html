@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm trẻ em - CLMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: linear-gradient(135deg, #4e2270 0%, #8b3fa0 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; font-family: sans-serif; }
+        .card { width: 400px; background: white; border-radius: 10px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; }
+        h3 { color: #6a2c91; margin-bottom: 20px; }
+        .input-group { position: relative; margin-bottom: 15px; }
+        .input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #6a2c91; }
+        input { width: 100%; padding: 12px 15px 12px 40px; border: 1px solid #ddd; border-radius: 25px; outline: none; box-sizing: border-box; }
+        button { background: #8b3fa0; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; width: 100%; font-weight: bold; }
+        button:hover { background: #6a2c91; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h3>➕ LIÊN KẾT THIẾT BỊ</h3>
+        <form action="/add-child" method="POST">
+            <div class="input-group"><i class="fas fa-child"></i><input type="text" name="childName" placeholder="Tên của trẻ (VD: Bé An)" required></div>
+            <div class="input-group"><i class="fas fa-phone"></i><input type="text" name="childPhone" placeholder="Số điện thoại trẻ" required></div>
+            <div class="input-group"><i class="fas fa-microchip"></i><input type="text" name="deviceId" placeholder="Thing ID (Arduino Cloud)" required></div>
+            <button type="submit">XÁC NHẬN LIÊN KẾT</button>
+        </form>
+        <br><a href="/" style="color: #6a2c91; text-decoration: none; font-size: 14px;">Quay lại Dashboard</a>
+    </div>
+</body>
+</html>

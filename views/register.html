@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - CLMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        
+        body {
+            background: linear-gradient(135deg, #4e2270 0%, #8b3fa0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .card { width: 420px; border-radius: 10px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3); position: relative; z-index: 10; }
+        
+        .card-top { background: linear-gradient(to bottom, rgba(91, 40, 125, 0.9), rgba(133, 59, 153, 0.9)); padding: 30px; color: white; }
+        .card-top h2 { font-size: 22px; margin-bottom: 10px; font-weight: 500; }
+        .card-top p { font-size: 11px; opacity: 0.8; margin-bottom: 15px; line-height: 1.5; }
+        .card-top a.create-acc { color: white; text-decoration: none; font-size: 13px; font-weight: 500; }
+        .card-top a.create-acc:hover { text-decoration: underline; }
+
+        .card-bottom { background: #fdfdfd; padding: 30px; text-align: center; }
+        .card-bottom h3 { color: #6a2c91; font-size: 18px; letter-spacing: 1px; margin-bottom: 20px; font-weight: 600; }
+
+        .input-group { position: relative; margin-bottom: 12px; }
+        .input-group i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: white; font-size: 14px; }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px 20px 10px 45px;
+            border: none;
+            border-radius: 25px;
+            background: #9e75b8;
+            color: white;
+            font-size: 13px;
+            outline: none;
+            transition: 0.3s;
+            appearance: none;
+        }
+        
+        .input-group input::placeholder { color: rgba(255, 255, 255, 0.8); }
+        .input-group input:focus, .input-group select:focus { background: #8e62a8; }
+        
+        /* Icon riêng cho thẻ select (mũi tên trỏ xuống) */
+        .select-arrow { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: white; pointer-events: none; }
+
+        button { background: #8b3fa0; color: white; border: none; padding: 12px 40px; border-radius: 25px; cursor: pointer; font-size: 12px; font-weight: bold; letter-spacing: 1px; transition: 0.3s; margin-top: 10px; }
+        button:hover { background: #6a2c91; }
+
+        /* Decor */
+        .shooting-star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; box-shadow: 0 0 10px 2px white; animation: falling 3s infinite linear; opacity: 0; }
+        .shooting-star::before { content: ''; position: absolute; top: 50%; transform: translateY(-50%); width: 30px; height: 1px; background: linear-gradient(90deg, white, transparent); }
+        @keyframes falling { 0% { transform: translate(100vw, -50vh) rotate(45deg); opacity: 1; } 100% { transform: translate(-50vw, 100vh) rotate(45deg); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="shooting-star" style="top: 20%; left: 90%; animation-delay: 0.5s;"></div>
+    
+    <div class="card">
+        <div class="card-top">
+            <h2>Join CLMS Today</h2>
+            <p>Tạo tài khoản để bắt đầu giám sát và bảo vệ các thiên thần nhỏ của bạn khỏi những rủi ro.</p>
+            <a href="/login" class="create-acc"><i class="fas fa-arrow-left"></i> Back to Login</a>
+        </div>
+
+        <div class="card-bottom">
+            <h3>USER REGISTER</h3>
+            <form action="/register" method="POST">
+                
+                <div class="input-group">
+                    <i class="fas fa-id-badge"></i>
+                    <input type="text" name="name" placeholder="Full Name" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-user-circle"></i>
+                    <input type="text" name="username" placeholder="Username" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-phone"></i>
+                    <input type="tel" name="phone" placeholder="Phone Number (SĐT Phụ huynh)" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-users"></i>
+                    <select name="role" required>
+                        <option value="parent">Role: Phụ huynh</option>
+                        <option value="child">Role: Trẻ em</option>
+                    </select>
+                    <i class="fas fa-caret-down select-arrow"></i>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-check-circle"></i>
+                    <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+                </div>
+
+                <button type="submit">CREATE ACCOUNT</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
