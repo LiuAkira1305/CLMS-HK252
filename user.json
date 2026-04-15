@@ -1,0 +1,10 @@
+[
+  {
+    "username": "liu_admin",
+    "name": "Quản Trị Viên liu",
+    "email": "admin@hcmut.edu.vn",
+    "role": "admin",
+    "password": "13052004",
+    "linkedChildren": []
+  }
+]
