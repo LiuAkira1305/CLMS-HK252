@@ -6,6 +6,7 @@ const path = require('path');
 const http = require('http');
 const { Server } = require('socket.io');
 const mqtt = require('mqtt');
+const { User, History, Notification } = require('./db.js');
 
 // ==========================================
 // 1. KHỞI TẠO SERVER & CẤU HÌNH CƠ BẢN
@@ -34,8 +35,8 @@ if (!fs.existsSync(NOTIFICATIONS_FILE)) fs.writeFileSync(NOTIFICATIONS_FILE, JSO
 if (!fs.existsSync(HISTORY_FILE)) fs.writeFileSync(HISTORY_FILE, JSON.stringify([]));
 
 // Hàm đọc/ghi file
-function getData(file) { return JSON.parse(fs.readFileSync(file)); }
-function saveData(file, data) { fs.writeFileSync(file, JSON.stringify(data, null, 2)); }
+// function getData(file) { return JSON.parse(fs.readFileSync(file)); }
+// function saveData(file, data) { fs.writeFileSync(file, JSON.stringify(data, null, 2)); }
 
 // ==========================================
 // 2. THUẬT TOÁN GEOFENCING (HAVERSINE)
@@ -83,19 +84,17 @@ mqttClient.on('connect', () => {
     });
 });
 
-mqttClient.on('message', (topic, message) => {
+mqttClient.on('message', async (topic, message) => {
     try {
         let childUsername = topic.split('/').pop();
         const data = JSON.parse(message.toString());
 
         // --- HỆ THỐNG AUTO-FALLBACK: SỬA LỖI OWNTRACKS GỬI SAI TÊN ---
         if (childUsername === 'clms' || childUsername === 'undefined' || !childUsername) {
-            const allUsers = getData(USERS_FILE);
-            // Lục tìm phụ huynh nào đang có trẻ để gán ép tọa độ vào trẻ đó
-            const parentWithChild = allUsers.find(u => u.role === 'parent' && u.linkedChildren && u.linkedChildren.length > 0);
+            const parentWithChild = await User.findOne({ role: 'parent', 'linkedChildren.0': { $exists: true } });
             if (parentWithChild) {
                 childUsername = parentWithChild.linkedChildren[0].childUsername; 
-                console.log(`🛠 [HOTFIX] Đã tự động nắn lại định danh từ app thành: ${childUsername}`);
+                console.log(`🛠 [HOTFIX] Đã tự động nắn lại định danh: ${childUsername}`);
             }
         }
 
@@ -104,19 +103,15 @@ mqttClient.on('message', (topic, message) => {
             io.emit('force-map-update', { lat: data.lat, lng: data.lon });
             const currentLocation = { lat: data.lat, lng: data.lon, batt: data.batt || 100 };
 
-            // Lưu lịch sử tọa độ
-            const history = getData(HISTORY_FILE);
-            history.push({ child: childUsername, location: currentLocation, time: new Date().toISOString() });
-            saveData(HISTORY_FILE, history);
+            // 💾 MONGODB: Lưu lịch sử tọa độ
+            await History.create({ child: childUsername, location: currentLocation });
 
-            // Kiểm tra vùng an toàn & Gửi dữ liệu Real-time
-            const users = getData(USERS_FILE);
-            const notifications = getData(NOTIFICATIONS_FILE);
+            // 💾 MONGODB: Lấy danh sách phụ huynh để check Geofence
+            const parents = await User.find({ role: 'parent' });
 
-            users.filter(u => u.role === 'parent').forEach(parent => {
+            parents.forEach(async (parent) => {
                 const childRecord = parent.linkedChildren.find(c => c.childUsername === childUsername);
                 if (childRecord) {
-                    // 1. KIỂM TRA XEM TRẺ CÓ ĐANG Ở TRONG BẤT KỲ VÙNG NÀO KHÔNG (Cả tròn và đa giác)
                     let insideAnyZone = false;
                     if (childRecord.safeZones && childRecord.safeZones.length > 0) {
                         for (let zone of childRecord.safeZones) {
@@ -124,13 +119,10 @@ mqttClient.on('message', (topic, message) => {
                             if (zone.type === 'polygon' && isInsidePolygon(currentLocation, zone.coords)) insideAnyZone = true;
                         }
                     } else {
-                        insideAnyZone = true; // Nếu phụ huynh chưa vẽ vùng nào thì mặc định là không báo độngS
+                        insideAnyZone = true; 
                     }
 
-                    // 2. THUẬT TOÁN BẮT SỰ KIỆN (NÂNG CẤP)
                     const lastSafe = previousStatus[childUsername];
-                    
-                    // Logic: Báo động nếu CÓ SỰ THAY ĐỔI, HOẶC nếu vừa bật Server lên mà đã thấy trẻ ở NGOÀI VÙNG
                     const isFirstPingAndOutside = (lastSafe === undefined && !insideAnyZone);
                     const isStateChanged = (lastSafe !== undefined && lastSafe !== insideAnyZone);
 
@@ -138,31 +130,21 @@ mqttClient.on('message', (topic, message) => {
                         const alertMsg = insideAnyZone ? `Trẻ vừa đi VÀO vùng an toàn.` : `CẢNH BÁO: Trẻ vừa đi RA KHỎI vùng an toàn!`;
                         
                         const newAlert = {
-                            id: Date.now(),
+                            id: Date.now().toString(),
                             type: 'GEOFENCE',
                             childUsername: childUsername,
                             name: childRecord.childName,
-                            time: new Date().toLocaleString(),
                             isSafe: insideAnyZone,
                             msg: alertMsg
                         };
                         
-                        notifications.push(newAlert);
-                        saveData(NOTIFICATIONS_FILE, notifications);
-
-                        // Phát loa báo động khẩn cấp xuống Web
-                        io.emit('geofence-alert', newAlert);
+                        // 💾 MONGODB: Lưu cảnh báo
+                        await Notification.create(newAlert);
+                        io.emit('geofence-alert', { ...newAlert, time: new Date().toLocaleString() });
                     }
                     
-                    // Cập nhật lại bộ nhớ cho lần check sau
                     previousStatus[childUsername] = insideAnyZone; 
-
-                    // Đẩy dữ liệu tọa độ qua Socket.io như bình thường
-                    io.emit(`gps-update-${parent.username}`, {
-                        childUsername: childUsername,
-                        location: currentLocation,
-                        isSafe: insideAnyZone
-                    });
+                    io.emit(`gps-update-${parent.username}`, { childUsername, location: currentLocation, isSafe: insideAnyZone });
                 }
             });
         }
@@ -172,131 +154,162 @@ mqttClient.on('message', (topic, message) => {
 });
 
 // ==========================================
-// 4. ROUTES XÁC THỰC (AUTH)
+// 4. ROUTES XÁC THỰC (AUTH) - ĐÃ LÊN MONGODB
 // ==========================================
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'views', 'login.html')));
 
-app.post('/login', (req, res) => {
+// Thêm async vào đây
+app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    const user = getData(USERS_FILE).find(u => u.username === username && u.password === password);
-    if (user) { req.session.user = user; res.redirect('/'); }
+    
+    // 💾 MONGODB: Tìm user có khớp username và password không
+    const user = await User.findOne({ username: username, password: password });
+    
+    if (user) { 
+        // Lưu session (chỉ lưu những thông tin cần thiết cho nhẹ)
+        req.session.user = { username: user.username, role: user.role, name: user.name }; 
+        res.redirect('/'); 
+    }
     else res.send('<script>alert("Sai tài khoản hoặc mật khẩu!"); window.location="/login";</script>');
 });
 
 app.get('/register', (req, res) => res.sendFile(path.join(__dirname, 'views', 'register.html')));
 
-app.post('/register', (req, res) => {
+// Thêm async vào đây
+app.post('/register', async (req, res) => {
     const { username, name, role, email, phone, password, confirmPassword } = req.body;
+    
     if (role === 'admin') return res.status(403).send('Chặn đăng ký Admin.');
     if (password !== confirmPassword) return res.send('Mật khẩu không khớp!');
-    const users = getData(USERS_FILE);
-    if (users.find(u => u.username === username)) return res.send('Username đã tồn tại!');
-    users.push({ username, name, role, email, phone, password, linkedChildren: [] });
-    saveData(USERS_FILE, users);
+    
+    // 💾 MONGODB: Kiểm tra xem username đã có ai lấy chưa
+    const existingUser = await User.findOne({ username: username });
+    if (existingUser) return res.send('Username đã tồn tại!');
+    
+    // 💾 MONGODB: Tạo và lưu user mới tinh vào Database
+    await User.create({ 
+        username, name, role, email, phone, password, linkedChildren: [] 
+    });
+    
     res.send('<script>alert("Đăng ký thành công!"); window.location="/login";</script>');
 });
 
 app.get('/logout', (req, res) => { req.session.destroy(); res.redirect('/login'); });
 
 // ==========================================
-// 5. API NGHIỆP VỤ (HÀNH ĐỘNG CỦA CÁC ROLE)
+// 5. API NGHIỆP VỤ (HÀNH ĐỘNG CỦA CÁC ROLE) - LÊN MONGODB
 // ==========================================
-app.post('/admin/delete-user', (req, res) => {
+app.post('/admin/delete-user', async (req, res) => {
     if (req.session.user?.role !== 'admin') return res.status(403).send('Từ chối truy cập.');
-    let users = getData(USERS_FILE);
-    users = users.filter(u => u.username !== req.body.targetUsername);
-    users.forEach(u => { if (u.linkedChildren) u.linkedChildren = u.linkedChildren.filter(c => c.childUsername !== req.body.targetUsername); });
-    saveData(USERS_FILE, users);
+    
+    // Xóa user bị chọn
+    await User.deleteOne({ username: req.body.targetUsername });
+    // Quét tất cả phụ huynh, ai đang liên kết với đứa trẻ vừa bị xóa thì gỡ liên kết luôn
+    await User.updateMany(
+        { role: 'parent' },
+        { $pull: { linkedChildren: { childUsername: req.body.targetUsername } } }
+    );
     res.redirect('/');
 });
 
-app.post('/admin/link-pair', (req, res) => {
+app.post('/admin/link-pair', async (req, res) => {
     if (req.session.user?.role !== 'admin') return res.status(403).send('Từ chối truy cập.');
     const { parentUser, childUser } = req.body;
-    const users = getData(USERS_FILE);
-    const parent = users.find(u => u.username === parentUser && u.role === 'parent');
-    const child = users.find(u => u.username === childUser && u.role === 'child');
+    
+    const parent = await User.findOne({ username: parentUser, role: 'parent' });
+    const child = await User.findOne({ username: childUser, role: 'child' });
+    
     if (parent && child && !parent.linkedChildren.find(c => c.childUsername === child.username)) {
-        parent.linkedChildren.push({ childUsername: child.username, childName: child.name, safeZone: { lat: 10.7723, lng: 106.6581, radius: 500 } });
-        saveData(USERS_FILE, users);
+        parent.linkedChildren.push({ childUsername: child.username, childName: child.name, safeZones: [] });
+        await parent.save(); // Lưu vào MongoDB
     }
     res.redirect('/');
 });
 
-app.post('/parent/add-child', (req, res) => {
+app.post('/parent/add-child', async (req, res) => {
     if (req.session.user?.role !== 'parent') return res.status(403).send('Từ chối truy cập.');
     const { childUsername } = req.body;
-    const users = getData(USERS_FILE);
-    const child = users.find(u => u.username === childUsername && u.role === 'child');
+    
+    const child = await User.findOne({ username: childUsername, role: 'child' });
     if (!child) return res.send('<script>alert("Không tìm thấy tài khoản trẻ em này!"); window.location="/";</script>');
 
-    const pIdx = users.findIndex(u => u.username === req.session.user.username);
-    if (users[pIdx].linkedChildren.find(c => c.childUsername === childUsername)) return res.redirect('/');
+    const parent = await User.findOne({ username: req.session.user.username });
+    if (parent.linkedChildren.find(c => c.childUsername === childUsername)) return res.redirect('/');
 
-    users[pIdx].linkedChildren.push({
+    parent.linkedChildren.push({
         childUsername: child.username,
         childName: child.name,
-        safeZone: { lat: 10.7723, lng: 106.6581, radius: 500 }
+        safeZones: []
     });
-    saveData(USERS_FILE, users);
-    req.session.user = users[pIdx];
+    await parent.save();
     res.redirect('/');
 });
 
-app.post('/parent/remove-child', (req, res) => {
+app.post('/parent/remove-child', async (req, res) => {
     if (req.session.user?.role !== 'parent') return res.status(403).send('Từ chối truy cập.');
-    const users = getData(USERS_FILE);
-    const pIdx = users.findIndex(u => u.username === req.session.user.username);
-    users[pIdx].linkedChildren = users[pIdx].linkedChildren.filter(c => c.childUsername !== req.body.childUsername);
-    saveData(USERS_FILE, users);
-    req.session.user = users[pIdx];
+    
+    await User.updateOne(
+        { username: req.session.user.username },
+        { $pull: { linkedChildren: { childUsername: req.body.childUsername } } }
+    );
     res.redirect('/');
 });
 
 // ==========================================
-// API: Lưu vùng vẽ mới (Bản Sạch)
+// API: Lưu vùng vẽ mới (Đã lên MongoDB)
 // ==========================================
-app.post('/parent/save-zone', (req, res) => {
+app.post('/parent/save-zone', async (req, res) => {
     try {
-        // req.body ĐÃ LÀ OBJECT RỒI, KHÔNG CẦN PARSE NỮA!
         const { childUsername, zoneData } = req.body;
 
-        const users = getData(USERS_FILE);
-        const pIdx = users.findIndex(u => u.username === req.session.user.username);
-        const cIdx = users[pIdx].linkedChildren.findIndex(c => c.childUsername === childUsername);
+        // 💾 MONGODB: Tìm chính xác user phụ huynh đang đăng nhập
+        const parent = await User.findOne({ username: req.session.user.username });
+        if (!parent) return res.json({ success: false });
+
+        // Tìm vị trí của đứa trẻ trong mảng linkedChildren
+        const cIdx = parent.linkedChildren.findIndex(c => c.childUsername === childUsername);
 
         if (cIdx !== -1) {
-            if (!users[pIdx].linkedChildren[cIdx].safeZones) users[pIdx].linkedChildren[cIdx].safeZones = [];
+            // Mongoose đã tự động chuẩn bị sẵn mảng safeZones (dựa theo Schema)
             zoneData.id = Date.now().toString(); // Tạo ID ngẫu nhiên
-            users[pIdx].linkedChildren[cIdx].safeZones.push(zoneData);
-            saveData(USERS_FILE, users);
-            req.session.user = users[pIdx]; // Cập nhật session
+            
+            // Push thẳng vùng mới vào con
+            parent.linkedChildren[cIdx].safeZones.push(zoneData);
+            
+            // 💾 MONGODB: Ra lệnh lưu lại những thay đổi vừa nãy vào Database
+            await parent.save();
+            
+            // Không cần cập nhật lại session ở đây vì session chỉ giữ username/role là đủ
             res.json({ success: true });
         } else {
             res.json({ success: false });
         }
     } catch (error) {
-        console.log("❌ Lỗi lúc Lưu Vùng:", error);
+        console.log("❌ Lỗi lúc Lưu Vùng DB:", error);
         res.json({ success: false });
     }
 });
 
 // ==========================================
-// API: Xóa 1 vùng cụ thể (Bản Sạch)
+// API: Xóa 1 vùng cụ thể (Bản MongoDB)
 // ==========================================
-app.post('/parent/delete-zone', (req, res) => {
+
+app.post('/parent/delete-zone', async (req, res) => {
     try {
-        // req.body ĐÃ LÀ OBJECT RỒI, KHÔNG CẦN PARSE NỮA!
         const { childUsername, zoneId } = req.body;
 
-        const users = getData(USERS_FILE);
-        const pIdx = users.findIndex(u => u.username === req.session.user.username);
-        const cIdx = users[pIdx].linkedChildren.findIndex(c => c.childUsername === childUsername);
+        // 💾 MONGODB: Tìm parent hiện tại
+        const parent = await User.findOne({ username: req.session.user.username });
+        if (!parent) return res.json({ success: false });
 
-        if (cIdx !== -1 && users[pIdx].linkedChildren[cIdx].safeZones) {
-            users[pIdx].linkedChildren[cIdx].safeZones = users[pIdx].linkedChildren[cIdx].safeZones.filter(z => z.id !== zoneId);
-            saveData(USERS_FILE, users);
-            req.session.user = users[pIdx];
+        const cIdx = parent.linkedChildren.findIndex(c => c.childUsername === childUsername);
+
+        if (cIdx !== -1 && parent.linkedChildren[cIdx].safeZones) {
+            // Lọc bỏ vùng có id trùng khớp
+            parent.linkedChildren[cIdx].safeZones = parent.linkedChildren[cIdx].safeZones.filter(z => z.id !== zoneId);
+            
+            // 💾 MONGODB: Lưu lại thay đổi
+            await parent.save();
             res.json({ success: true });
         } else {
             res.json({ success: false });
@@ -307,55 +320,76 @@ app.post('/parent/delete-zone', (req, res) => {
     }
 });
 
-app.post('/parent/set-geofence', (req, res) => {
+app.post('/parent/set-geofence', async (req, res) => {
     if (req.session.user?.role !== 'parent') return res.status(403).send('Từ chối truy cập.');
     const { childUsername, radius } = req.body;
-    const users = getData(USERS_FILE);
-    const pIdx = users.findIndex(u => u.username === req.session.user.username);
-    const cIdx = users[pIdx].linkedChildren.findIndex(c => c.childUsername === childUsername);
-    if (cIdx !== -1) {
-        users[pIdx].linkedChildren[cIdx].safeZone.radius = parseInt(radius);
-        saveData(USERS_FILE, users);
-        req.session.user = users[pIdx];
+    
+    // 💾 MONGODB: Tìm parent và cập nhật
+    const parent = await User.findOne({ username: req.session.user.username });
+    if (parent) {
+        const cIdx = parent.linkedChildren.findIndex(c => c.childUsername === childUsername);
+        if (cIdx !== -1 && parent.linkedChildren[cIdx].safeZone) {
+            parent.linkedChildren[cIdx].safeZone.radius = parseInt(radius);
+            await parent.save();
+        }
     }
     res.redirect('/');
 });
 
-app.post('/parent/respond-request', (req, res) => {
+app.post('/parent/respond-request', async (req, res) => {
     if (req.session.user?.role !== 'parent') return res.status(403).send('Từ chối truy cập.');
-    const notifications = getData(NOTIFICATIONS_FILE);
-    const idx = notifications.findIndex(n => n.id == req.body.requestId);
-    if (idx !== -1) {
-        notifications[idx].status = req.body.status;
-        saveData(NOTIFICATIONS_FILE, notifications);
-    }
+    
+    // 💾 MONGODB: Tìm đúng Notification theo ID và cập nhật status luôn, không cần load hết
+    await Notification.updateOne(
+        { id: req.body.requestId }, 
+        { status: req.body.status }
+    );
+    
     res.redirect('/');
 });
 
-app.post('/child/sos', (req, res) => {
+app.post('/child/sos', async (req, res) => {
     if (req.session.user?.role !== 'child') return res.status(403).send('Từ chối truy cập.');
-    const notifications = getData(NOTIFICATIONS_FILE);
-    notifications.push({ id: Date.now(), type: 'SOS', from: req.session.user.username, name: req.session.user.name, time: new Date().toLocaleString(), status: 'Critical', msg: 'Tín hiệu SOS KHẨN CẤP!' });
-    saveData(NOTIFICATIONS_FILE, notifications);
+    
+    // 💾 MONGODB: Tạo mới một bản ghi Cảnh báo (SOS)
+    await Notification.create({ 
+        id: Date.now().toString(), 
+        type: 'SOS', 
+        childUsername: req.session.user.username, 
+        name: req.session.user.name, 
+        status: 'Critical', 
+        msg: 'Tín hiệu SOS KHẨN CẤP!' 
+    });
+    
     res.redirect('/');
 });
 
-app.post('/child/request-move', (req, res) => {
+app.post('/child/request-move', async (req, res) => {
     if (req.session.user?.role !== 'child') return res.status(403).send('Từ chối truy cập.');
-    const notifications = getData(NOTIFICATIONS_FILE);
-    notifications.push({ id: Date.now(), type: 'Request', from: req.session.user.username, name: req.session.user.name, destination: req.body.destination, time: new Date().toLocaleString(), status: 'Pending' });
-    saveData(NOTIFICATIONS_FILE, notifications);
+    
+    // 💾 MONGODB: Tạo mới một bản ghi Yêu cầu di chuyển
+    await Notification.create({ 
+        id: Date.now().toString(), 
+        type: 'Request', 
+        childUsername: req.session.user.username, 
+        name: req.session.user.name, 
+        msg: req.body.destination, // Lưu vào trường msg theo schema db.js
+        status: 'Pending' 
+    });
+    
     res.redirect('/');
 });
 
 // ==========================================
 // 6. DASHBOARD CHÍNH (GIAO DIỆN WEB)
 // ==========================================
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     if (!req.session.user) return res.redirect('/login');
-    const user = req.session.user;
-    const users = getData(USERS_FILE);
-    const notifications = getData(NOTIFICATIONS_FILE);
+    
+    // 💾 MONGODB: Kéo dữ liệu tươi nhất từ Database lên Web
+    const user = await User.findOne({ username: req.session.user.username });
+    const users = await User.find();
+    const notifications = await Notification.find().sort({ time: -1 });
 
     let html = `
     <!DOCTYPE html>
@@ -460,17 +494,10 @@ app.get('/', (req, res) => {
                 <div style="flex:2;">
                     <h3>👦👧 Trẻ đang giám sát</h3>
                     <table>
-                        <tr><th>Tên Trẻ</th><th>Geofence (Bán kính)</th><th>Hành động</th></tr>
+                        <tr><th>Tên Trẻ</th><th>Hành động</th></tr>
                         ${user.linkedChildren.map(c => `
                             <tr>
                                 <td>${c.childName} <br><small>(@${c.childUsername})</small></td>
-                                <td>
-                                    <form action="/parent/set-geofence" method="POST" style="display:inline-block;">
-                                        <input type="hidden" name="childUsername" value="${c.childUsername}">
-                                        <input type="number" name="radius" class="input-box" value="${c.safeZone.radius}" style="width: 70px;">
-                                        <button type="submit" class="btn btn-success">Lưu Vùng</button>
-                                    </form>
-                                </td>
                                 <td>
                                     <form action="/parent/remove-child" method="POST" style="display:inline-block;">
                                         <input type="hidden" name="childUsername" value="${c.childUsername}">

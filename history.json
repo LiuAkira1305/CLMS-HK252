@@ -18878,5 +18878,725 @@
       "batt": 80
     },
     "time": "2026-04-21T03:43:41.214Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773058,
+      "lng": 106.658658,
+      "batt": 80
+    },
+    "time": "2026-04-22T09:47:46.120Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773196,
+      "lng": 106.658886,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:38.968Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773196,
+      "lng": 106.658887,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:40.202Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773394,
+      "lng": 106.659038,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:40.773Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773394,
+      "lng": 106.659038,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:42.124Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773395,
+      "lng": 106.659038,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:44.128Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773395,
+      "lng": 106.659038,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:46.108Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773204,
+      "lng": 106.658952,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:46.561Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773204,
+      "lng": 106.658952,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:48.104Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773204,
+      "lng": 106.658952,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:50.105Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773204,
+      "lng": 106.658952,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:52.190Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773219,
+      "lng": 106.658953,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:54.160Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773197,
+      "lng": 106.65894,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:54.477Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773197,
+      "lng": 106.65894,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:56.107Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773197,
+      "lng": 106.65894,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:48:58.133Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773193,
+      "lng": 106.658939,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:00.137Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773195,
+      "lng": 106.658938,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:02.135Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773195,
+      "lng": 106.658938,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:04.136Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773201,
+      "lng": 106.658941,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:06.137Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773201,
+      "lng": 106.658941,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:08.174Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.7732,
+      "lng": 106.65894,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:10.134Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773201,
+      "lng": 106.658941,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:12.133Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773201,
+      "lng": 106.658941,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:14.148Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773201,
+      "lng": 106.658941,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:16.133Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773201,
+      "lng": 106.658941,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:18.142Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.7732,
+      "lng": 106.658941,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:20.134Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773199,
+      "lng": 106.65894,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:22.086Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773232,
+      "lng": 106.658922,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:22.432Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773236,
+      "lng": 106.658928,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:24.184Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773238,
+      "lng": 106.65893,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:26.208Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773259,
+      "lng": 106.658914,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:27.253Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773259,
+      "lng": 106.658914,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:28.213Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773287,
+      "lng": 106.658912,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:28.476Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773292,
+      "lng": 106.65891,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:30.190Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773299,
+      "lng": 106.658903,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:32.166Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.77334,
+      "lng": 106.658873,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:33.299Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.77334,
+      "lng": 106.658873,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:34.273Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773324,
+      "lng": 106.658881,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:36.180Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.77331,
+      "lng": 106.658873,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:38.176Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773324,
+      "lng": 106.658865,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:40.192Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773323,
+      "lng": 106.658875,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:42.185Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773305,
+      "lng": 106.658887,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:43.315Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773305,
+      "lng": 106.658887,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:44.185Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773324,
+      "lng": 106.65886,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:44.424Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773328,
+      "lng": 106.658855,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:46.178Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773311,
+      "lng": 106.658879,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:47.247Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773311,
+      "lng": 106.658879,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:48.202Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773289,
+      "lng": 106.658892,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:48.466Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773315,
+      "lng": 106.658908,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:49.402Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773315,
+      "lng": 106.658908,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:50.239Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773324,
+      "lng": 106.658909,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:52.189Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773429,
+      "lng": 106.65886,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:53.255Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773429,
+      "lng": 106.65886,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:54.273Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.77332,
+      "lng": 106.658921,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:54.540Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773263,
+      "lng": 106.658954,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:55.258Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773263,
+      "lng": 106.658954,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:56.183Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773271,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:49:58.185Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:00.282Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:03.299Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:04.215Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:06.187Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:08.214Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:10.208Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:12.214Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:14.206Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:16.215Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:18.212Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:20.209Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:22.207Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:24.212Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773272,
+      "lng": 106.658951,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:26.205Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773268,
+      "lng": 106.658954,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:28.192Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773265,
+      "lng": 106.658957,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:30.360Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773254,
+      "lng": 106.658966,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:32.326Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773238,
+      "lng": 106.658977,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:34.261Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773238,
+      "lng": 106.658977,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:34.581Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773206,
+      "lng": 106.658996,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:35.251Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773197,
+      "lng": 106.658959,
+      "batt": 34
+    },
+    "time": "2026-04-22T09:50:36.249Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773197,
+      "lng": 106.658959,
+      "batt": 34
+    },
+    "time": "2026-04-22T10:18:30.551Z"
+  },
+  {
+    "child": "leo_test_child",
+    "location": {
+      "lat": 10.773197,
+      "lng": 106.658959,
+      "batt": 34
+    },
+    "time": "2026-04-22T10:19:02.232Z"
   }
 ]
