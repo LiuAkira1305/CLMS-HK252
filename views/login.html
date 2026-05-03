@@ -1,173 +1,320 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập - CLMS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Sign In — CLMS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        
-        /* Background tổng thể (Màu tím gradient) */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --clr-bg:        #0D0720;
+            --clr-surface:   #150E2E;
+            --clr-border:    #2A1F55;
+            --clr-primary:   #7C3AED;
+            --clr-primary-h: #6D28D9;
+            --clr-accent:    #A78BFA;
+            --clr-text:      #F5F3FF;
+            --clr-text-2:    #A89FC3;
+            --clr-success:   #10B981;
+            --clr-danger:    #EF4444;
+        }
+
         body {
-            background: linear-gradient(135deg, #4e2270 0%, #8b3fa0 100%);
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--clr-bg);
             min-height: 100vh;
             display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: center;
+            padding: 24px;
             position: relative;
             overflow: hidden;
         }
 
-        /* Khung Card chính */
-        .card {
-            width: 400px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 10;
+        /* Ambient glow */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px; left: 50%;
+            transform: translateX(-50%);
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%);
+            pointer-events: none;
         }
 
-        /* Nửa trên của Card (Màu tím) */
-        .card-top {
-            background: linear-gradient(to bottom, rgba(150, 72, 202, 0.9), rgba(139, 21, 172, 0.9));
-            padding: 40px 30px;
-            color: white;
-            position: relative;
-        }
-
-        .card-top h2 { font-size: 22px; margin-bottom: 10px; font-weight: 500; }
-        .card-top p { font-size: 11px; opacity: 0.8; margin-bottom: 30px; line-height: 1.5; }
-        .card-top a.create-acc { color: white; text-decoration: none; font-size: 13px; font-weight: 500; }
-        .card-top a.create-acc:hover { text-decoration: underline; }
-
-        /* Nửa dưới của Card (Màu trắng) */
-        .card-bottom {
-            background: #fdfdfd;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .card-bottom h3 {
-            color: #6a2c91;
-            font-size: 18px;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
-            font-weight: 600;
-        }
-
-        /* Khung nhập liệu có chứa Icon */
-        .input-group {
-            position: relative;
-            margin-bottom: 15px;
-        }
-
-        .input-group i {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            font-size: 14px;
-        }
-
-        /* Style cho ô input (Màu tím nhạt, bo tròn) */
-        .input-group input {
-            width: 100%;
-            padding: 12px 20px 12px 45px;
-            border: none;
-            border-radius: 25px;
-            background: #9e75b8; /* Tím nhạt giống ảnh */
-            color: white;
-            font-size: 14px;
-            outline: none;
-            transition: 0.3s;
-        }
-        
-        .input-group input::placeholder { color: rgba(255, 255, 255, 0.8); }
-        .input-group input:focus { background: #8e62a8; }
-
-        /* Các tùy chọn Remember & Forgot Password */
-        .options {
+        .split {
             display: flex;
+            width: 100%;
+            max-width: 1040px;
+            min-height: 620px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--clr-border);
+            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Left panel */
+        .panel-left {
+            width: 45%;
+            background: linear-gradient(160deg, #3B0D8E 0%, #1E0754 60%, #0D0720 100%);
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            color: #6a2c91;
-            margin: 20px 0;
-            padding: 0 10px;
         }
 
-        .options a { color: #6a2c91; text-decoration: none; }
-        .options a:hover { text-decoration: underline; }
+        .brand { display: flex; align-items: center; gap: 10px; }
+        .brand-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--clr-accent);
+            box-shadow: 0 0 12px var(--clr-accent);
+        }
+        .brand-name {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--clr-text);
+        }
 
-        /* Nút đăng nhập */
-        button {
-            background: #8b3fa0;
-            color: white;
+        .panel-left-body { margin-top: 54px; }
+        .panel-left-body h1 {
+            font-size: 36px;
+            font-weight: 700;
+            font-family: 'Fraunces', Georgia, serif;
+            color: var(--clr-text);
+            line-height: 1.25;
+            margin-bottom: 18px;
+        }
+        .panel-left-body h1 span { color: var(--clr-accent); }
+        .panel-left-body p {
+            font-size: 14px;
+            color: var(--clr-text-2);
+            line-height: 1.65;
+        }
+
+        .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 32px; }
+        .pill {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(167,139,250,0.3);
+            color: var(--clr-accent);
+            background: rgba(124,58,237,0.12);
+        }
+
+        .panel-left-footer {
+            font-size: 11px;
+            color: rgba(168,159,195,0.5);
+            letter-spacing: 0.04em;
+        }
+
+        /* Right panel */
+        .panel-right {
+            flex: 1;
+            background: var(--clr-surface);
+            padding: 60px 52px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-label-group {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--clr-text-2);
+            margin-bottom: 28px;
+        }
+
+        .panel-right h2 {
+            font-size: 26px;
+            font-weight: 700;
+            font-family: 'Fraunces', Georgia, serif;
+            color: var(--clr-text);
+            margin-bottom: 6px;
+        }
+        .panel-right .sub {
+            font-size: 13px;
+            color: var(--clr-text-2);
+            margin-bottom: 36px;
+        }
+        .panel-right .sub a {
+            color: var(--clr-accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .panel-right .sub a:hover { text-decoration: underline; }
+
+        .field { margin-bottom: 16px; }
+        .field label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--clr-text-2);
+            margin-bottom: 7px;
+        }
+        .field input {
+            width: 100%;
+            padding: 11px 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--clr-border);
+            border-radius: 8px;
+            color: var(--clr-text);
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .field input::placeholder { color: rgba(168,159,195,0.4); }
+        .field input:focus {
+            border-color: var(--clr-primary);
+            box-shadow: 0 0 0 3px rgba(124,58,237,0.18);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 13px;
+            background: var(--clr-primary);
+            color: #fff;
             border: none;
-            padding: 12px 40px;
-            border-radius: 25px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
             cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            transition: 0.3s;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            letter-spacing: 0.02em;
+            margin-top: 8px;
         }
-        
-        button:hover { background: #6a2c91; }
+        .btn-primary:hover { background: var(--clr-primary-h); box-shadow: 0 4px 20px rgba(124,58,237,0.4); }
+        .btn-primary:active { transform: scale(0.98); }
 
-        /* CSS tạo hiệu ứng sao chổi (trang trí thêm cho ngầu) */
-        .shooting-star {
-            position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%;
-            box-shadow: 0 0 10px 2px white; animation: falling 3s infinite linear; opacity: 0;
+        /* Toast */
+        #toast-container {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
         }
-        .shooting-star::before { content: ''; position: absolute; top: 50%; transform: translateY(-50%); width: 30px; height: 1px; background: linear-gradient(90deg, white, transparent); }
-        @keyframes falling {
-            0% { transform: translate(100vw, -50vh) rotate(45deg); opacity: 1; }
-            100% { transform: translate(-50vw, 100vh) rotate(45deg); opacity: 0; }
+        .toast {
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 18px;
+            border-radius: 14px;
+            border: 1px solid transparent;
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--clr-text);
+            background: rgba(29, 19, 63, 0.92);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            animation: slideIn 0.3s ease;
+            min-width: 260px;
+            max-width: 360px;
+            backdrop-filter: blur(14px);
+        }
+        .toast.success { border-color: rgba(16,185,129,0.55); box-shadow: 0 0 0 1px rgba(16,185,129,0.14), 0 18px 36px rgba(16,185,129,0.14); }
+        .toast.error   { border-color: rgba(239,68,68,0.58); box-shadow: 0 0 0 1px rgba(239,68,68,0.14), 0 18px 36px rgba(239,68,68,0.16); }
+        .toast.warning { border-color: rgba(245, 158, 11, 0.58); box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.14), 0 18px 36px rgba(245, 158, 11, 0.14); }
+        .toast-icon { font-size: 16px; flex-shrink: 0; }
+        .toast-body { flex: 1; }
+        .toast-title { font-weight: 600; font-size: 13px; }
+        .toast-msg   { font-size: 12px; color: var(--clr-text-2); margin-top: 2px; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to   { opacity: 1; transform: translateX(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="shooting-star" style="top: 10%; left: 80%; animation-delay: 0s;"></div>
-    <div class="shooting-star" style="top: 30%; left: 60%; animation-delay: 1.5s;"></div>
-
-    <div class="card">
-        <div class="card-top">
-            <h2>Welcome to CLMS</h2>
-            <p>Hệ thống giám sát vị trí trẻ em thông minh. Đảm bảo an toàn cho gia đình bạn với công nghệ theo dõi thời gian thực.</p>
-            <a href="/register" class="create-acc">Create Account</a>
+<div class="split">
+    <div class="panel-left">
+        <div class="brand">
+            <div class="brand-dot"></div>
+            <span class="brand-name">CLMS</span>
         </div>
-
-        <div class="card-bottom">
-            <h3>USER LOGIN</h3>
-            <form action="/login" method="POST">
-                
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" name="username" placeholder="Username" required>
-                </div>
-                
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" name="password" placeholder="Password" required>
-                </div>
-
-                <div class="options">
-                    <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
-                        <input type="checkbox" checked style="accent-color: #6a2c91;"> Remember
-                    </label>
-                    <a href="#">Forgot password?</a>
-                </div>
-
-                <button type="submit">LOGIN</button>
-                
-            </form>
+        <div class="panel-left-body">
+            <h1>Child Location<br><span>Monitoring</span><br>System</h1>
+            <p>Real-time GPS tracking and geofence alerting for parents who need to keep their children safe.</p>
+            <div class="pill-row">
+                <span class="pill">Live Map</span>
+                <span class="pill">Geofence</span>
+                <span class="pill">SOS Alert</span>
+                <span class="pill">History</span>
+            </div>
         </div>
+        <div class="panel-left-footer">GROUP 3</div>
     </div>
 
+    <div class="panel-right">
+        <h2>Welcome back</h2>
+        <p class="sub">Sign in to your account. &nbsp;<a href="/register">No account? Register</a></p>
+
+        <form action="/login" method="POST" id="login-form">
+            <div class="field">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter username" required autocomplete="username">
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter password" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn-primary" id="btn-login">Sign In</button>
+        </form>
+    </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script>
+function toast(type, title, msg) {
+    const icons = { success: '+', error: 'x', warning: '!' };
+    const el = document.createElement('div');
+    el.className = 'toast ' + type;
+    el.innerHTML = `<span class="toast-icon">${icons[type] || 'i'}</span>
+        <div class="toast-body">
+            <div class="toast-title">${title}</div>
+            ${msg ? `<div class="toast-msg">${msg}</div>` : ''}
+        </div>`;
+    document.getElementById('toast-container').appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+}
+
+document.getElementById('login-form').addEventListener('submit', function(e) {
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value;
+    if (!u || !p) {
+        e.preventDefault();
+        toast('error', 'Missing fields', 'Please fill in all fields.');
+    } else {
+        document.getElementById('btn-login').textContent = 'Signing in...';
+        document.getElementById('btn-login').disabled = true;
+    }
+});
+
+const params = new URLSearchParams(window.location.search);
+const notice = params.get('notice');
+const title = params.get('title');
+const msg = params.get('msg');
+if (notice && title) {
+    toast(notice === 'success' ? 'success' : notice === 'warning' ? 'warning' : 'error', title, msg || '');
+    window.history.replaceState({}, document.title, window.location.pathname);
+}
+</script>
 </body>
 </html>

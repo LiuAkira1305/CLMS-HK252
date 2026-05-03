@@ -11,9 +11,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "body-parser": "^2.2.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.4.1",
     "express-session": "^1.19.0",
-    "mongoose": "^9.5.0"
+    "mongoose": "^9.5.0",
+    "mqtt": "^5.15.1",
+    "socket.io": "^4.8.3"
   }
 }

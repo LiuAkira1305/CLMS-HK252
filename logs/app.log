@@ -1,0 +1,227 @@
+[2026-05-03T05:39:42.997Z] [INFO ] [pid-14344] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T05:39:43.000Z] [INFO ] [pid-14344] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T05:39:43.007Z] [INFO ] [pid-14344] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T05:39:43.008Z] [INFO ] [pid-14344] [SERVER] NODE_ENV=development | INSTANCE=pid-14344
+[2026-05-03T05:39:43.009Z] [WARN ] [pid-14344] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T05:39:44.135Z] [INFO ] [pid-14344] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T05:39:44.414Z] [INFO ] [pid-14344] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T05:57:18.453Z] [WARN ] [pid-14344] [MQTT] Invalid coordinates from status: lat=undefined, lng=undefined. Discarding.
+[2026-05-03T05:57:19.860Z] [WARN ] [pid-14344] [MQTT] Invalid coordinates from status: lat=undefined, lng=undefined. Discarding.
+[2026-05-03T05:58:33.329Z] [INFO ] [pid-14344] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:03:43.154Z] [INFO ] [pid-14344] [NOTIFIER] Alert "device-offline" delivered via WebSocket to parent "user"
+[2026-05-03T06:03:43.155Z] [WARN ] [pid-14344] [HEARTBEAT] OFFLINE alert issued for device "leo_test_child" (parent: user)
+[2026-05-03T06:04:01.702Z] [INFO ] [pid-14344] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:04:02.001Z] [INFO ] [pid-14344] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:04:30.148Z] [INFO ] [pid-14344] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:04:30.453Z] [INFO ] [pid-14344] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:05:20.075Z] [INFO ] [pid-14344] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:05:20.341Z] [INFO ] [pid-14344] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:06:07.026Z] [WARN ] [pid-14344] [MQTT] Malformed JSON from leo_test_child. Discarding.
+[2026-05-03T06:08:42.366Z] [INFO ] [pid-14344] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:09:29.739Z] [INFO ] [pid-14344] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:09:29.990Z] [INFO ] [pid-14344] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:10:58.410Z] [INFO ] [pid-12708] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T06:10:58.412Z] [INFO ] [pid-12708] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T06:10:58.419Z] [INFO ] [pid-12708] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T06:10:58.419Z] [INFO ] [pid-12708] [SERVER] NODE_ENV=development | INSTANCE=pid-12708
+[2026-05-03T06:10:58.420Z] [WARN ] [pid-12708] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T06:10:59.447Z] [INFO ] [pid-12708] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T06:10:59.797Z] [INFO ] [pid-12708] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T06:10:59.825Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:12:16.769Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:12:17.025Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:12:26.012Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:12:51.936Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:12:51.956Z] [INFO ] [pid-12708] [DBSVC] Notification written to primary: type=GEOFENCE parent=user
+[2026-05-03T06:12:51.962Z] [INFO ] [pid-12708] [NOTIFIER] Alert "geofence-alert" delivered via WebSocket to parent "user"
+[2026-05-03T06:19:45.277Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:19:58.443Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:19:58.456Z] [INFO ] [pid-12708] [DBSVC] Notification written to primary: type=GEOFENCE parent=user
+[2026-05-03T06:19:58.458Z] [INFO ] [pid-12708] [NOTIFIER] Alert "geofence-alert" delivered via WebSocket to parent "user"
+[2026-05-03T06:22:14.007Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:22:14.347Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:22:14.353Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:22:21.538Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:22:55.072Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:22:55.273Z] [INFO ] [pid-12708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:27:58.516Z] [WARN ] [pid-12708] [NOTIFIER] WebSocket delivery FAILED (parent offline): "user". Activating Channel 2.
+[2026-05-03T06:27:58.518Z] [INFO ] [pid-12708] [NOTIFIER] Simulated email written for parent "user": OFFLINE
+[2026-05-03T06:27:58.520Z] [WARN ] [pid-12708] [HEARTBEAT] OFFLINE alert issued for device "leo_test_child" (parent: user)
+[2026-05-03T06:39:10.694Z] [INFO ] [pid-16828] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T06:39:10.695Z] [INFO ] [pid-16828] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T06:39:10.698Z] [INFO ] [pid-16828] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T06:39:10.698Z] [INFO ] [pid-16828] [SERVER] NODE_ENV=development | INSTANCE=pid-16828
+[2026-05-03T06:39:10.698Z] [WARN ] [pid-16828] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T06:39:11.624Z] [INFO ] [pid-16828] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T06:39:11.858Z] [INFO ] [pid-16828] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T06:39:11.868Z] [INFO ] [pid-16828] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:39:56.938Z] [INFO ] [pid-16828] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:39:57.155Z] [INFO ] [pid-16828] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:40:55.129Z] [INFO ] [pid-13904] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T06:40:55.131Z] [INFO ] [pid-13904] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T06:40:55.136Z] [INFO ] [pid-13904] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T06:40:55.136Z] [INFO ] [pid-13904] [SERVER] NODE_ENV=development | INSTANCE=pid-13904
+[2026-05-03T06:40:55.136Z] [WARN ] [pid-13904] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T06:40:56.026Z] [INFO ] [pid-13904] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T06:40:56.248Z] [INFO ] [pid-13904] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T06:40:56.259Z] [INFO ] [pid-13904] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:42:33.926Z] [INFO ] [pid-13904] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:43:28.019Z] [INFO ] [pid-13904] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:43:28.035Z] [INFO ] [pid-13904] [DBSVC] Notification written to primary: type=GEOFENCE parent=user
+[2026-05-03T06:43:28.038Z] [INFO ] [pid-13904] [NOTIFIER] Alert "geofence-alert" delivered via WebSocket to parent "user"
+[2026-05-03T06:43:28.240Z] [INFO ] [pid-13904] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:44:52.871Z] [INFO ] [pid-13904] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:45:06.817Z] [INFO ] [pid-13904] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:46:01.871Z] [INFO ] [pid-13904] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:46:02.120Z] [INFO ] [pid-13904] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:51:55.209Z] [INFO ] [pid-13904] [NOTIFIER] Alert "device-offline" delivered via WebSocket to parent "user"
+[2026-05-03T06:51:55.210Z] [WARN ] [pid-13904] [HEARTBEAT] OFFLINE alert issued for device "leo_test_child" (parent: user)
+[2026-05-03T06:52:40.546Z] [INFO ] [pid-25188] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T06:52:40.547Z] [INFO ] [pid-25188] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T06:52:40.550Z] [INFO ] [pid-25188] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T06:52:40.551Z] [INFO ] [pid-25188] [SERVER] NODE_ENV=development | INSTANCE=pid-25188
+[2026-05-03T06:52:40.551Z] [WARN ] [pid-25188] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T06:52:41.522Z] [INFO ] [pid-25188] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T06:52:41.759Z] [INFO ] [pid-25188] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T06:52:41.769Z] [INFO ] [pid-25188] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T06:58:40.588Z] [INFO ] [pid-25188] [NOTIFIER] Alert "device-offline" delivered via WebSocket to parent "user"
+[2026-05-03T06:58:40.589Z] [WARN ] [pid-25188] [HEARTBEAT] OFFLINE alert issued for device "leo_test_child" (parent: user)
+[2026-05-03T07:02:46.854Z] [INFO ] [pid-2428] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T07:02:46.856Z] [INFO ] [pid-2428] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T07:02:46.858Z] [INFO ] [pid-2428] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T07:02:46.859Z] [INFO ] [pid-2428] [SERVER] NODE_ENV=development | INSTANCE=pid-2428
+[2026-05-03T07:02:46.859Z] [WARN ] [pid-2428] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T07:02:47.817Z] [INFO ] [pid-2428] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T07:02:48.044Z] [INFO ] [pid-2428] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T07:02:48.054Z] [INFO ] [pid-2428] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:08:25.350Z] [INFO ] [pid-24272] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T07:08:25.352Z] [INFO ] [pid-24272] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T07:08:25.355Z] [INFO ] [pid-24272] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T07:08:25.355Z] [INFO ] [pid-24272] [SERVER] NODE_ENV=development | INSTANCE=pid-24272
+[2026-05-03T07:08:25.356Z] [WARN ] [pid-24272] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T07:08:26.317Z] [INFO ] [pid-24272] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T07:08:26.554Z] [INFO ] [pid-24272] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T07:08:26.566Z] [INFO ] [pid-24272] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:10:36.080Z] [INFO ] [pid-24272] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:11:12.267Z] [INFO ] [pid-24272] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:11:12.282Z] [INFO ] [pid-24272] [DBSVC] Notification written to primary: type=GEOFENCE parent=user
+[2026-05-03T07:11:12.292Z] [INFO ] [pid-24272] [NOTIFIER] Alert "geofence-alert" delivered via WebSocket to parent "user"
+[2026-05-03T07:13:10.722Z] [INFO ] [pid-23392] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T07:13:10.723Z] [INFO ] [pid-23392] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T07:13:10.727Z] [INFO ] [pid-23392] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T07:13:10.727Z] [INFO ] [pid-23392] [SERVER] NODE_ENV=development | INSTANCE=pid-23392
+[2026-05-03T07:13:10.727Z] [WARN ] [pid-23392] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T07:13:11.637Z] [INFO ] [pid-23392] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T07:13:11.861Z] [INFO ] [pid-23392] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T07:13:11.871Z] [INFO ] [pid-23392] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:16:32.530Z] [INFO ] [pid-23392] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:16:32.761Z] [INFO ] [pid-23392] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:16:32.769Z] [INFO ] [pid-23392] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:16:40.080Z] [INFO ] [pid-23392] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:17:31.920Z] [INFO ] [pid-23392] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:17:31.936Z] [INFO ] [pid-23392] [DBSVC] Notification written to primary: type=GEOFENCE parent=user
+[2026-05-03T07:17:31.940Z] [INFO ] [pid-23392] [NOTIFIER] Alert "geofence-alert" delivered via WebSocket to parent "user"
+[2026-05-03T07:17:32.146Z] [INFO ] [pid-23392] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:21:28.164Z] [INFO ] [pid-19464] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T07:21:28.165Z] [INFO ] [pid-19464] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T07:21:28.167Z] [INFO ] [pid-19464] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T07:21:28.168Z] [INFO ] [pid-19464] [SERVER] NODE_ENV=development | INSTANCE=pid-19464
+[2026-05-03T07:21:28.168Z] [WARN ] [pid-19464] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T07:21:29.132Z] [INFO ] [pid-19464] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T07:21:29.371Z] [INFO ] [pid-19464] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T07:21:29.382Z] [INFO ] [pid-19464] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:24:06.475Z] [INFO ] [pid-19464] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:24:32.543Z] [INFO ] [pid-19464] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:24:50.412Z] [INFO ] [pid-19464] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:24:50.428Z] [INFO ] [pid-19464] [DBSVC] Notification written to primary: type=GEOFENCE parent=user
+[2026-05-03T07:24:50.431Z] [INFO ] [pid-19464] [NOTIFIER] Alert "geofence-alert" delivered via WebSocket to parent "user"
+[2026-05-03T07:28:58.521Z] [INFO ] [pid-19464] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:29:00.439Z] [INFO ] [pid-19464] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:30:47.616Z] [INFO ] [pid-27232] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T07:30:47.617Z] [INFO ] [pid-27232] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T07:30:47.621Z] [INFO ] [pid-27232] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T07:30:47.621Z] [INFO ] [pid-27232] [SERVER] NODE_ENV=development | INSTANCE=pid-27232
+[2026-05-03T07:30:47.621Z] [WARN ] [pid-27232] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T07:30:48.532Z] [INFO ] [pid-27232] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T07:30:48.754Z] [INFO ] [pid-27232] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T07:30:48.764Z] [INFO ] [pid-27232] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:36:47.674Z] [INFO ] [pid-27232] [NOTIFIER] Alert "device-offline" delivered via WebSocket to parent "user"
+[2026-05-03T07:36:47.676Z] [WARN ] [pid-27232] [HEARTBEAT] OFFLINE alert issued for device "leo_test_child" (parent: user)
+[2026-05-03T07:38:29.242Z] [INFO ] [pid-9708] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T07:38:29.243Z] [INFO ] [pid-9708] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T07:38:29.246Z] [INFO ] [pid-9708] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T07:38:29.246Z] [INFO ] [pid-9708] [SERVER] NODE_ENV=development | INSTANCE=pid-9708
+[2026-05-03T07:38:29.247Z] [WARN ] [pid-9708] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T07:38:30.176Z] [INFO ] [pid-9708] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T07:38:30.410Z] [INFO ] [pid-9708] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T07:38:30.421Z] [INFO ] [pid-9708] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:44:29.310Z] [INFO ] [pid-9708] [NOTIFIER] Alert "device-offline" delivered via WebSocket to parent "user"
+[2026-05-03T07:44:29.310Z] [WARN ] [pid-9708] [HEARTBEAT] OFFLINE alert issued for device "leo_test_child" (parent: user)
+[2026-05-03T07:49:34.886Z] [INFO ] [pid-21036] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T07:49:34.888Z] [INFO ] [pid-21036] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T07:49:34.891Z] [INFO ] [pid-21036] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T07:49:34.891Z] [INFO ] [pid-21036] [SERVER] NODE_ENV=development | INSTANCE=pid-21036
+[2026-05-03T07:49:34.892Z] [WARN ] [pid-21036] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T07:49:36.687Z] [INFO ] [pid-21036] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T07:49:36.924Z] [INFO ] [pid-21036] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T07:49:36.937Z] [INFO ] [pid-21036] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:53:15.283Z] [INFO ] [pid-332] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T07:53:15.285Z] [INFO ] [pid-332] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T07:53:15.289Z] [INFO ] [pid-332] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T07:53:15.289Z] [INFO ] [pid-332] [SERVER] NODE_ENV=development | INSTANCE=pid-332
+[2026-05-03T07:53:15.290Z] [WARN ] [pid-332] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T07:53:16.226Z] [INFO ] [pid-332] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T07:53:16.454Z] [INFO ] [pid-332] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T07:53:16.469Z] [INFO ] [pid-332] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:56:18.376Z] [INFO ] [pid-21308] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T07:56:18.378Z] [INFO ] [pid-21308] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T07:56:18.381Z] [INFO ] [pid-21308] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T07:56:18.381Z] [INFO ] [pid-21308] [SERVER] NODE_ENV=development | INSTANCE=pid-21308
+[2026-05-03T07:56:18.381Z] [WARN ] [pid-21308] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T07:56:19.306Z] [INFO ] [pid-21308] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T07:56:19.531Z] [INFO ] [pid-21308] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T07:56:19.543Z] [INFO ] [pid-21308] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:56:58.522Z] [INFO ] [pid-27944] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T07:56:58.524Z] [INFO ] [pid-27944] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T07:56:58.527Z] [INFO ] [pid-27944] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T07:56:58.527Z] [INFO ] [pid-27944] [SERVER] NODE_ENV=development | INSTANCE=pid-27944
+[2026-05-03T07:56:58.528Z] [WARN ] [pid-27944] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T07:56:59.534Z] [INFO ] [pid-27944] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T07:56:59.768Z] [INFO ] [pid-27944] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T07:56:59.779Z] [INFO ] [pid-27944] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T07:59:22.004Z] [INFO ] [pid-18596] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T07:59:22.006Z] [INFO ] [pid-18596] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T07:59:22.010Z] [INFO ] [pid-18596] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T07:59:22.011Z] [INFO ] [pid-18596] [SERVER] NODE_ENV=development | INSTANCE=pid-18596
+[2026-05-03T07:59:22.012Z] [WARN ] [pid-18596] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T07:59:22.930Z] [INFO ] [pid-18596] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T07:59:23.154Z] [INFO ] [pid-18596] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T07:59:23.164Z] [INFO ] [pid-18596] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T08:02:13.429Z] [INFO ] [pid-18596] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T08:03:30.111Z] [INFO ] [pid-18748] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T08:03:30.113Z] [INFO ] [pid-18748] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T08:03:30.116Z] [INFO ] [pid-18748] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T08:03:30.117Z] [INFO ] [pid-18748] [SERVER] NODE_ENV=development | INSTANCE=pid-18748
+[2026-05-03T08:03:30.117Z] [WARN ] [pid-18748] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T08:03:31.168Z] [INFO ] [pid-18748] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T08:03:31.407Z] [INFO ] [pid-18748] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T08:03:31.420Z] [INFO ] [pid-18748] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T08:07:37.217Z] [INFO ] [pid-20440] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T08:07:37.219Z] [INFO ] [pid-20440] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T08:07:37.222Z] [INFO ] [pid-20440] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T08:07:37.223Z] [INFO ] [pid-20440] [SERVER] NODE_ENV=development | INSTANCE=pid-20440
+[2026-05-03T08:07:37.223Z] [WARN ] [pid-20440] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T08:07:38.238Z] [INFO ] [pid-20440] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T08:07:38.465Z] [INFO ] [pid-20440] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T08:07:38.478Z] [INFO ] [pid-20440] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T08:09:45.763Z] [INFO ] [pid-15524] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T08:09:45.764Z] [INFO ] [pid-15524] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T08:09:45.768Z] [INFO ] [pid-15524] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T08:09:45.768Z] [INFO ] [pid-15524] [SERVER] NODE_ENV=development | INSTANCE=pid-15524
+[2026-05-03T08:09:45.768Z] [WARN ] [pid-15524] [SERVER] Running in HTTP mode. Use a TLS proxy in production.
+[2026-05-03T08:09:46.662Z] [INFO ] [pid-15524] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T08:09:46.885Z] [INFO ] [pid-15524] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T08:09:46.897Z] [INFO ] [pid-15524] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T08:15:45.831Z] [WARN ] [pid-15524] [NOTIFIER] WebSocket delivery FAILED (parent offline): "user". Activating Channel 2.
+[2026-05-03T08:15:45.835Z] [INFO ] [pid-15524] [NOTIFIER] Simulated email written for parent "user": OFFLINE
+[2026-05-03T08:15:45.836Z] [WARN ] [pid-15524] [HEARTBEAT] OFFLINE alert issued for device "leo_test_child" (parent: user)
