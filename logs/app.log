@@ -465,3 +465,39 @@
 [2026-05-03T10:48:29.965Z] [INFO ] [pid-23696] [DBSVC] History written to primary for device leo_test_child
 [2026-05-03T10:48:29.979Z] [INFO ] [pid-23696] [DBSVC] Notification written to primary: type=GEOFENCE parent=user
 [2026-05-03T10:48:29.984Z] [INFO ] [pid-23696] [NOTIFIER] Alert "geofence-alert" delivered via WebSocket to parent "user"
+[2026-05-03T11:08:30.078Z] [INFO ] [pid-12932] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T11:08:30.081Z] [INFO ] [pid-12932] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T11:08:30.090Z] [INFO ] [pid-12932] [SERVER] CLMS running at http://localhost:3000
+[2026-05-03T11:08:30.091Z] [INFO ] [pid-12932] [SERVER] NODE_ENV=development | INSTANCE=pid-12932
+[2026-05-03T11:08:30.091Z] [WARN ] [pid-12932] [SERVER] Running in HTTP mode. Set ENABLE_HTTPS=true with HTTPS_KEY_PATH and HTTPS_CERT_PATH for production.
+[2026-05-03T11:08:31.218Z] [INFO ] [pid-12932] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T11:08:31.518Z] [INFO ] [pid-12932] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T11:08:31.565Z] [INFO ] [pid-12932] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T11:09:10.739Z] [INFO ] [pid-14844] [HEARTBEAT] Monitor started. Interval=60s, Threshold=5min.
+[2026-05-03T11:09:10.742Z] [INFO ] [pid-14844] [WORKER] Queue worker started. Polling every 5s.
+[2026-05-03T11:09:11.770Z] [INFO ] [pid-14844] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T11:09:11.994Z] [INFO ] [pid-14844] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T11:09:12.038Z] [INFO ] [pid-14844] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T11:09:31.555Z] [INFO ] [pid-12932] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T11:09:31.556Z] [INFO ] [pid-14844] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T11:09:45.296Z] [INFO ] [pid-12932] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T11:09:45.300Z] [INFO ] [pid-14844] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T11:10:11.269Z] [INFO ] [pid-12932] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T11:10:11.270Z] [INFO ] [pid-14844] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T11:10:11.285Z] [INFO ] [pid-12932] [DBSVC] Notification written to primary: type=GEOFENCE parent=user
+[2026-05-03T11:10:11.291Z] [INFO ] [pid-12932] [NOTIFIER] Alert "geofence-alert" delivered via WebSocket to parent "user"
+[2026-05-03T11:10:11.301Z] [INFO ] [pid-14844] [DBSVC] Notification written to primary: type=GEOFENCE parent=user
+[2026-05-03T11:10:11.306Z] [WARN ] [pid-14844] [NOTIFIER] WebSocket delivery FAILED (parent offline): "user". Activating Channel 2.
+[2026-05-03T11:10:11.309Z] [INFO ] [pid-14844] [NOTIFIER] Simulated email written for parent "user": GEOFENCE
+[2026-05-03T11:11:50.053Z] [INFO ] [pid-12932] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T11:11:50.054Z] [INFO ] [pid-14844] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T11:17:10.805Z] [WARN ] [pid-14844] [NOTIFIER] WebSocket delivery FAILED (parent offline): "user". Activating Channel 2.
+[2026-05-03T11:17:10.806Z] [INFO ] [pid-14844] [NOTIFIER] Simulated email written for parent "user": OFFLINE
+[2026-05-03T11:17:10.807Z] [WARN ] [pid-14844] [HEARTBEAT] OFFLINE alert issued for device "leo_test_child" (parent: user)
+[2026-05-03T11:29:24.008Z] [ERROR] [pid-14844] [MQTT] MQTT error: write ECONNABORTED
+[2026-05-03T11:29:26.066Z] [INFO ] [pid-14844] [MQTT] Connected to HiveMQ Cloud.
+[2026-05-03T11:29:26.066Z] [INFO ] [pid-14844] [MQTT] Subscribed to clmshk252group3/clms/+
+[2026-05-03T11:29:26.295Z] [INFO ] [pid-14844] [DBSVC] History written to primary for device leo_test_child
+[2026-05-03T11:34:26.829Z] [WARN ] [pid-12932] [NOTIFIER] WebSocket delivery FAILED (parent offline): "user". Activating Channel 2.
+[2026-05-03T11:34:26.833Z] [INFO ] [pid-12932] [NOTIFIER] Simulated email written for parent "user": OFFLINE
+[2026-05-03T11:34:26.835Z] [WARN ] [pid-12932] [HEARTBEAT] OFFLINE alert issued for device "leo_test_child" (parent: user)

@@ -48,7 +48,7 @@ const sessionMiddleware = session({
     cookie: {
         maxAge:   3600000,     // 1 hour
         httpOnly: true,        // Prevents JS-based session hijacking
-        secure:   process.env.NODE_ENV === 'production', // true in prod (HTTPS only)
+        secure:   useHttps,    // Follows runtime HTTPS toggle
         sameSite: 'strict'     // Mitigates CSRF
     }
 });
@@ -66,6 +66,14 @@ const sosLimiter = rateLimit({
     message:         JSON.stringify({ error: 'Too many SOS requests. Try again later.' })
 });
 app.use('/iot/sos', sosLimiter);
+
+const iotLimiter = rateLimit({
+    windowMs:        60 * 1000,
+    max:             30,
+    standardHeaders: true,
+    legacyHeaders:   false
+});
+app.use('/iot', iotLimiter);
 
 // Expose io to route handlers via req.app.get('io')
 app.set('io', io);

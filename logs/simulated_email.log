@@ -1,3 +1,6 @@
 {"at":"2026-05-03T06:27:58.518Z","to":"user@clms.local","subject":"[CLMS ALERT] OFFLINE — test","body":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
 {"at":"2026-05-03T08:15:45.833Z","to":"user@clms.local","subject":"[CLMS ALERT] OFFLINE — test","body":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
 {"at":"2026-05-03T08:43:08.264Z","to":"user@clms.local","subject":"[CLMS ALERT] OFFLINE — test","body":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
+{"at":"2026-05-03T11:10:11.307Z","to":"user@clms.local","subject":"[CLMS ALERT] GEOFENCE — test","body":"ALERT: test has LEFT the safe zone!"}
+{"at":"2026-05-03T11:17:10.806Z","to":"user@clms.local","subject":"[CLMS ALERT] OFFLINE — test","body":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
+{"at":"2026-05-03T11:34:26.831Z","to":"user@clms.local","subject":"[CLMS ALERT] OFFLINE — test","body":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}

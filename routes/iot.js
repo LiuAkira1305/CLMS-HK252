@@ -11,6 +11,7 @@ const User         = require('../models/User');
 const Notification = require('../models/Notification');
 const { withRetry }    = require('../utils/retry');
 const { deliverAlert } = require('../utils/alertFallback');
+const { requireRole }  = require('../middleware/auth');
 
 // POST /iot/sos
 // Body: { childId: string, deviceSecret: string }
@@ -100,15 +101,14 @@ router.post('/sos', async (req, res) => {
 // POST /iot/register-secret
 // Allows a parent (via session) to set or rotate the deviceSecret for their device.
 // The secret is stored as a bcrypt hash — never in plain text.
-const { requireRole } = require('../middleware/auth');
-
-router.post('/register-secret', async (req, res) => {
+router.post('/register-secret', requireRole('parent'), async (req, res) => {
     try {
         const { childId, deviceSecret } = req.body;
 
         console.log('HIT REGISTER');
 
         const parent = await User.findOne({
+            username: req.session.user.username,
             "linkedDevices.childId": childId
         });
 

@@ -12,7 +12,7 @@ function ensureCsrfToken(req, res, next) {
 function verifyCsrf(req, res, next) {
     if (req.method !== 'POST') return next();
 
-    if (req.path.startsWith('/iot/')) return next();
+    if (req.path === '/iot/sos') return next();
 
     const expected = req.session?.csrfToken;
     const submitted = req.body?._csrf || req.get('x-csrf-token');

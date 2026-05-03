@@ -21,3 +21,10 @@
 {"at":"2026-05-03T10:39:04.935Z","channel":"websocket","status":"sent","parentUsername":"user","type":"GEOFENCE","childId":"leo_test_child","msg":"ALERT: test has LEFT the safe zone!"}
 {"at":"2026-05-03T10:42:24.799Z","channel":"websocket","status":"sent","parentUsername":"user","type":"GEOFENCE","childId":"leo_test_child","msg":"ALERT: test has LEFT the safe zone!"}
 {"at":"2026-05-03T10:48:29.983Z","channel":"websocket","status":"sent","parentUsername":"user","type":"GEOFENCE","childId":"leo_test_child","msg":"ALERT: test has LEFT the safe zone!"}
+{"at":"2026-05-03T11:10:11.290Z","channel":"websocket","status":"sent","parentUsername":"user","type":"GEOFENCE","childId":"leo_test_child","msg":"ALERT: test has LEFT the safe zone!"}
+{"at":"2026-05-03T11:10:11.305Z","channel":"websocket","status":"failed","parentUsername":"user","type":"GEOFENCE","childId":"leo_test_child","msg":"ALERT: test has LEFT the safe zone!"}
+{"at":"2026-05-03T11:10:11.310Z","channel":"simulated-email","status":"sent","parentUsername":"user","type":"GEOFENCE","childId":"leo_test_child","msg":"ALERT: test has LEFT the safe zone!"}
+{"at":"2026-05-03T11:17:10.804Z","channel":"websocket","status":"failed","parentUsername":"user","type":"OFFLINE","childId":"leo_test_child","msg":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
+{"at":"2026-05-03T11:17:10.807Z","channel":"simulated-email","status":"sent","parentUsername":"user","type":"OFFLINE","childId":"leo_test_child","msg":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
+{"at":"2026-05-03T11:34:26.827Z","channel":"websocket","status":"failed","parentUsername":"user","type":"OFFLINE","childId":"leo_test_child","msg":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
+{"at":"2026-05-03T11:34:26.834Z","channel":"simulated-email","status":"sent","parentUsername":"user","type":"OFFLINE","childId":"leo_test_child","msg":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
