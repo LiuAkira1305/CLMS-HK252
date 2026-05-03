@@ -2,6 +2,8 @@
 const express   = require('express');
 const bcrypt    = require('bcrypt');
 const rateLimit = require('express-rate-limit');
+const fs        = require('fs');
+const path      = require('path');
 const router    = express.Router();
 const User      = require('../models/User');
 
@@ -21,7 +23,9 @@ const loginLimiter = rateLimit({
 // GET /login
 router.get('/login', (req, res) => {
     if (req.session?.user) return res.redirect('/');
-    res.sendFile(require('path').join(__dirname, '..', 'views', 'login.html'));
+    const html = fs.readFileSync(path.join(__dirname, '..', 'views', 'login.html'), 'utf8')
+        .replaceAll('{{CSRF_TOKEN}}', req.session?.csrfToken || '');
+    res.send(html);
 });
 
 // POST /login — rate limited
@@ -50,7 +54,9 @@ router.post('/login', loginLimiter, async (req, res) => {
 // GET /register — Only parents can self-register
 router.get('/register', (req, res) => {
     if (req.session?.user) return res.redirect('/');
-    res.sendFile(require('path').join(__dirname, '..', 'views', 'register.html'));
+    const html = fs.readFileSync(path.join(__dirname, '..', 'views', 'register.html'), 'utf8')
+        .replaceAll('{{CSRF_TOKEN}}', req.session?.csrfToken || '');
+    res.send(html);
 });
 
 // POST /register

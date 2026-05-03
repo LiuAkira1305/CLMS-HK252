@@ -20,6 +20,8 @@ router.post('/sos', async (req, res) => {
 
         if (!childId)
             return res.status(400).json({ error: 'childId is required.' });
+        if (!deviceSecret || deviceSecret.length < 8)
+            return res.status(400).send('Invalid deviceSecret');
 
         // Find the parent(s) that own this device
         const parents = await User.find({
@@ -43,8 +45,7 @@ router.post('/sos', async (req, res) => {
                 console.warn(`[IoT] SOS from "${childId}" rejected: no deviceSecret configured.`);
                 continue;
             }
-
-            const secretMatch = await bcrypt.compare(String(deviceSecret || ''), device.deviceSecret);
+            const secretMatch = await bcrypt.compare(String(deviceSecret), device.deviceSecret);
             if (!secretMatch) {
                 console.warn(`[IoT] SOS from "${childId}" rejected: invalid deviceSecret.`);
                 continue; // Try other parents, but log the mismatch
@@ -101,27 +102,39 @@ router.post('/sos', async (req, res) => {
 // The secret is stored as a bcrypt hash — never in plain text.
 const { requireRole } = require('../middleware/auth');
 
-router.post('/register-secret', requireRole('parent'), async (req, res) => {
+router.post('/register-secret', async (req, res) => {
     try {
-        const { childId, secret } = req.body;
-        if (!childId || !secret || secret.length < 8)
-            return res.json({ success: false, error: 'childId and secret (min 8 chars) are required.' });
+        const { childId, deviceSecret } = req.body;
 
-        // FIX: store secret as bcrypt hash — plain text never touches DB
-        const secretHash = await bcrypt.hash(secret, 12);
+        console.log('HIT REGISTER');
 
-        const result = await User.updateOne(
-            { username: req.session.user.username, 'linkedDevices.childId': childId },
-            { $set: { 'linkedDevices.$.deviceSecret': secretHash } }
-        );
+        const parent = await User.findOne({
+            "linkedDevices.childId": childId
+        });
 
-        if (result.matchedCount === 0)
-            return res.json({ success: false, error: 'Device not found or not owned by you.' });
+        if (!parent) {
+            return res.status(404).json({ error: 'Device not found' });
+        }
 
-        res.json({ success: true, message: 'Device secret updated. Configure the same secret on the hardware.' });
+        const device = parent.linkedDevices.find(d => d.childId === childId);
+
+        if (!device) {
+            return res.status(404).json({ error: 'Device not found in array' });
+        }
+
+        const hash = await bcrypt.hash(deviceSecret, 12);
+
+        device.deviceSecret = hash;
+
+        await parent.save();
+
+        console.log('SAVED HASH:', hash);
+
+        res.json({ success: true });
+
     } catch (err) {
-        console.error('[IoT] Register secret error:', err);
-        res.json({ success: false, error: 'Server error.' });
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
     }
 });
 

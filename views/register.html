@@ -235,6 +235,7 @@
         <p class="sub">Already have an account? <a href="/login">Sign in</a></p>
 
         <form action="/register" method="POST" id="reg-form">
+            <input type="hidden" name="_csrf" value="{{CSRF_TOKEN}}">
             <div class="field-row">
                 <div class="field">
                     <label for="name">Full Name</label>

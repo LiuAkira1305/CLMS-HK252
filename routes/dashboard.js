@@ -27,6 +27,7 @@ router.get('/', requireLogin, async (req, res) => {
 });
 
 async function renderAdminDashboard(res, user) {
+    const csrfToken = res.req.session?.csrfToken || '';
     const users = await User.find({ role: { $ne: 'admin' } }).sort({ createdAt: -1 }).lean();
     const totalUsers = users.length;
     const totalParents = users.filter((u) => u.role === 'parent').length;
@@ -45,6 +46,7 @@ async function renderAdminDashboard(res, user) {
                 <td>${Array.isArray(u.linkedDevices) ? u.linkedDevices.length : 0}</td>
                 <td>
                     <form action="/admin/delete-user" method="POST" class="inline-form">
+                        ${csrfField(csrfToken)}
                         <input type="hidden" name="targetUsername" value="${escapeAttr(u.username)}">
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete ${escapeJs(u.username)}?')">Delete</button>
                     </form>
@@ -56,6 +58,7 @@ async function renderAdminDashboard(res, user) {
         title: 'Admin Dashboard',
         activeNav: 'overview',
         user,
+        csrfToken,
         navItems: [
             { label: 'Overview', href: '#overview', active: true },
             { label: 'Users', href: '#users' },
@@ -117,6 +120,7 @@ async function renderAdminDashboard(res, user) {
 
             <section class="panel">
                 <form action="/admin/create-parent" method="POST" class="form-grid">
+                    ${csrfField(csrfToken)}
                     <label class="field">
                         <span>Username</span>
                         <input class="input-box" name="username" placeholder="parent01" required>
@@ -147,6 +151,7 @@ async function renderAdminDashboard(res, user) {
 }
 
 async function renderParentDashboard(res, user) {
+    const csrfToken = res.req.session?.csrfToken || '';
     const notifications = await Notification.find({
         parentUsername: user.username,
         acknowledged: false,
@@ -174,6 +179,7 @@ async function renderParentDashboard(res, user) {
                 <div class="card-actions">
                     <button class="btn btn-ghost btn-sm" type="button" onclick="openGeofencePanel('${escapeJs(device.childId)}','${escapeJs(device.childName)}')">Geofence</button>
                     <form action="/parent/remove-device" method="POST" class="inline-form">
+                        ${csrfField(csrfToken)}
                         <input type="hidden" name="childId" value="${escapeAttr(device.childId)}">
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Remove ${escapeJs(device.childName)}?')">Remove</button>
                     </form>
@@ -199,6 +205,7 @@ async function renderParentDashboard(res, user) {
     res.send(pageShell({
         title: 'Parent Dashboard',
         user,
+        csrfToken,
         navItems: [
             { label: 'Overview', section: 'overview-panel', active: true },
             { label: 'Recent Alerts', section: 'alerts-panel' },
@@ -363,6 +370,7 @@ async function renderParentDashboard(res, user) {
                     </div>
                 </div>
                 <form action="/parent/add-device" method="POST" class="form-grid form-grid-inline">
+                    ${csrfField(csrfToken)}
                     <label class="field field-wide">
                         <span>Device ID</span>
                         <input class="input-box" name="childId" placeholder="MQTT topic suffix" required>
@@ -497,8 +505,11 @@ async function renderParentDashboard(res, user) {
                 function deleteNotification(notifId, button) {
                     fetch('/parent/acknowledge', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        body: new URLSearchParams({ notifId })
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-CSRF-Token': window.__CSRF_TOKEN__ || ''
+                        },
+                        body: new URLSearchParams({ notifId, _csrf: window.__CSRF_TOKEN__ || '' })
                     })
                     .then((resp) => {
                         if (!resp.ok) throw new Error('Request failed');
@@ -648,8 +659,11 @@ async function renderParentDashboard(res, user) {
 
                     fetch('/parent/set-geofence', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-Token': window.__CSRF_TOKEN__ || ''
+                        },
+                        body: JSON.stringify({ ...payload, _csrf: window.__CSRF_TOKEN__ || '' })
                     })
                         .then((r) => r.json())
                         .then((data) => {
@@ -794,7 +808,6 @@ async function renderParentDashboard(res, user) {
                 });
 
                 const socket = io();
-                socket.emit('join-parent-room', ${JSON.stringify(user.username)});
 
                 socket.on('gps-update', function(data) {
                     const pos = [data.location.lat, data.location.lng];
@@ -853,7 +866,7 @@ async function renderParentDashboard(res, user) {
     }));
 }
 
-function pageShell({ title, user, navItems, content, extraHead = '', extraScript = '' }) {
+function pageShell({ title, user, navItems, content, extraHead = '', extraScript = '', csrfToken = '' }) {
     const nav = (navItems || []).map((item) => {
         if (item.section) {
             return `<button type="button" class="topnav-pill${item.active ? ' active' : ''}" data-section="${escapeAttr(item.section)}">${escapeHtml(item.label)}</button>`;
@@ -871,6 +884,7 @@ function pageShell({ title, user, navItems, content, extraHead = '', extraScript
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     ${extraHead}
+    <script>window.__CSRF_TOKEN__ = ${JSON.stringify(csrfToken)};</script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
@@ -1666,6 +1680,10 @@ function pageShell({ title, user, navItems, content, extraHead = '', extraScript
 
 function deviceTag(label, value) {
     return `<span class="tag">${escapeHtml(label)}: ${escapeHtml(value)}</span>`;
+}
+
+function csrfField(token) {
+    return token ? `<input type="hidden" name="_csrf" value="${escapeAttr(token)}">` : '';
 }
 
 function geofenceSummary(gf) {

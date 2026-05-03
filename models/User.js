@@ -12,6 +12,9 @@ const childDeviceSchema = new mongoose.Schema({
     geofenceState: { type: Boolean, default: null },  // null=unknown, true=inside, false=outside
     // heartbeat — timestamp of last received GPS ping
     lastSeen:     { type: Date, default: null },
+    // offline alert persistence — prevents duplicate OFFLINE alerts after restart
+    offlineAlertActive: { type: Boolean, default: false },
+    offlineAlertAt:     { type: Date, default: null },
     geofence: {
         mode:   { type: String, enum: ['radius', 'rectangle', 'polygon', null], default: null },
         // Radius mode: centre lat/lng + fixed 1km radius
@@ -38,3 +41,6 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
+
+
+

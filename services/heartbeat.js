@@ -13,11 +13,6 @@ const MOD = 'HEARTBEAT';
 const CHECK_INTERVAL_MS    = 60_000;
 const OFFLINE_THRESHOLD_MS = 300_000;
 
-// FIX: lastSeen and offlineAlerted persist in DB (childDeviceSchema.lastSeen)
-// but we also maintain an in-process map as a fast lookup cache.
-const lastSeenCache   = {}; // { "<parentUsername>:<childId>": Date }
-const offlineAlertsSet = new Set(); // Tracks which devices already have an open offline alert
-
 let _io = null;
 
 /**
@@ -25,14 +20,11 @@ let _io = null;
  * Updates the in-memory cache AND the DB field.
  */
 async function recordSeen(parentUsername, childId) {
-    const key = `${parentUsername}:${childId}`;
-    lastSeenCache[key] = new Date();
     try {
         await User.updateOne(
             { username: parentUsername, 'linkedDevices.childId': childId },
-            { $set: { 'linkedDevices.$.lastSeen': new Date() } }
+            { $set: { 'linkedDevices.$.lastSeen': new Date(), 'linkedDevices.$.offlineAlertActive': false, 'linkedDevices.$.offlineAlertAt': null } }
         );
-        offlineAlertsSet.delete(key);
     } catch (err) {
         logger.warn(MOD, `Could not persist lastSeen for ${childId}: ${err.message}`);
     }
@@ -47,18 +39,26 @@ async function runCheck() {
         const now = Date.now();
         for (const parent of parents) {
             for (const device of parent.linkedDevices) {
-                const key      = `${parent.username}:${device.childId}`;
                 const lastSeen = device.lastSeen ? new Date(device.lastSeen).getTime() : null;
 
                 if (!lastSeen) continue;
 
                 const elapsed = now - lastSeen;
 
-                if (elapsed > OFFLINE_THRESHOLD_MS && !offlineAlertsSet.has(key)) {
-                    offlineAlertsSet.add(key);
+                if (elapsed > OFFLINE_THRESHOLD_MS && !device.offlineAlertActive) {
                     const msg = `Device "${device.childName}" has not sent a location update for more than 5 minutes. It may be offline or out of coverage.`;
 
                     try {
+                        await User.updateOne(
+                            { username: parent.username, 'linkedDevices.childId': device.childId },
+                            {
+                                $set: {
+                                    'linkedDevices.$.offlineAlertActive': true,
+                                    'linkedDevices.$.offlineAlertAt': new Date()
+                                }
+                            }
+                        );
+
                         await withRetry(
                             () => Notification.create({
                                 type:           'OFFLINE',

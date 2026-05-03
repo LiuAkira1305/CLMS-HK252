@@ -121,8 +121,9 @@ function evaluate(point, gf) {
         logger.warn(MOD,
             `Algorithm diversity MISMATCH for device at (${point.lat},${point.lng}) ` +
             `mode=${gf.mode}: primary=${primary}, secondary=${secondary}. ` +
-            `Using primary result. Device may be near boundary.`
+            `Fail-safe forcing OUTSIDE.`
         );
+        return false;
     }
 
     return primary;

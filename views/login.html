@@ -266,6 +266,7 @@
         <p class="sub">Sign in to your account. &nbsp;<a href="/register">No account? Register</a></p>
 
         <form action="/login" method="POST" id="login-form">
+            <input type="hidden" name="_csrf" value="{{CSRF_TOKEN}}">
             <div class="field">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Enter username" required autocomplete="username">

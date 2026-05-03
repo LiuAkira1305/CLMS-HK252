@@ -18,6 +18,10 @@ const { isValidCoord } = require('../utils/validate');
 const logger           = require('../utils/logger');
 
 const MOD = 'MQTT';
+const MQTT_URL = process.env.MQTT_URL;
+const MQTT_USERNAME = process.env.MQTT_USERNAME;
+const MQTT_PASSWORD = process.env.MQTT_PASSWORD;
+const MQTT_TOPIC_PREFIX = process.env.MQTT_TOPIC_PREFIX || 'clmshk252group3/clms';
 
 let _io = null;
 
@@ -38,16 +42,21 @@ function init(io) {
     worker.setProcessMessage(processMessage);
     worker.setIo(io);
 
-    const mqttClient = mqtt.connect(
-        'mqtts://eea6ea368a3b45f59f40963f1e2dcf47.s1.eu.hivemq.cloud:8883',
-        { username: 'liu_apple', password: '@@Dominhhien1305' }
-    );
+    if (!MQTT_URL || !MQTT_USERNAME || !MQTT_PASSWORD) {
+        logger.error(MOD, 'MQTT_URL, MQTT_USERNAME, and MQTT_PASSWORD must be set in the environment. MQTT connection disabled.');
+        return;
+    }
+
+    const mqttClient = mqtt.connect(MQTT_URL, {
+        username: MQTT_USERNAME,
+        password: MQTT_PASSWORD
+    });
 
     mqttClient.on('connect', () => {
         logger.info(MOD, 'Connected to HiveMQ Cloud.');
-        mqttClient.subscribe('clmshk252group3/clms/+', (err) => {
+        mqttClient.subscribe(`${MQTT_TOPIC_PREFIX}/+`, (err) => {
             if (err) logger.error(MOD, `Subscribe error: ${err.message}`);
-            else     logger.info(MOD, 'Subscribed to clmshk252group3/clms/+');
+            else     logger.info(MOD, `Subscribed to ${MQTT_TOPIC_PREFIX}/+`);
         });
     });
 
@@ -70,8 +79,12 @@ function init(io) {
             return;
         }
 
+        if (data._type !== 'location') {
+            return;
+        }
+
         const lat  = data.lat;
-        const lng  = data.lon ?? data.lng;
+        const lng  = data.lon;
         const batt = data.batt ?? 100;
 
         // ── 3. Primary validation ─────────────────────────────────────────────
@@ -108,16 +121,7 @@ function init(io) {
 async function processMessage(childId, { lat, lng, batt }) {
     const point = { lat, lng };
 
-    // ── STAGE A: Persist history via dbService (primary + backup) ─────────────
-    try {
-        // REDUNDANCY: DB replication — dbService handles primary + backup write
-        await dbService.writeHistory({ childId, location: { lat, lng, batt } });
-    } catch (err) {
-        // All layers failed — already logged by dbService; continue to alert
-        logger.error(MOD, `Stage A (history) all layers failed for ${childId}: ${err.message}`);
-    }
-
-    // ── STAGE B: Resolve parent ownership ────────────────────────────────────
+    // ── STAGE A: Resolve parent ownership before persisting data ───
     let parents;
     try {
         parents = await withRetry(
@@ -132,6 +136,12 @@ async function processMessage(childId, { lat, lng, batt }) {
     if (!parents || parents.length === 0) {
         logger.warn(MOD, `No parent found for childId "${childId}". Discarding.`);
         return;
+    }
+    // ── STAGE B: Persist history only for known child-device mappings ───
+    try {
+        await dbService.writeHistory({ childId, location: { lat, lng, batt } });
+    } catch (err) {
+        logger.error(MOD, `Stage B (history) all layers failed for ${childId}: ${err.message}`);
     }
 
     // ── STAGE C: Per-parent processing ───────────────────────────────────────
@@ -209,3 +219,4 @@ async function processMessage(childId, { lat, lng, batt }) {
 }
 
 module.exports = { init, processMessage };
+
