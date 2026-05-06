@@ -4,3 +4,10 @@
 {"at":"2026-05-03T11:10:11.307Z","to":"user@clms.local","subject":"[CLMS ALERT] GEOFENCE — test","body":"ALERT: test has LEFT the safe zone!"}
 {"at":"2026-05-03T11:17:10.806Z","to":"user@clms.local","subject":"[CLMS ALERT] OFFLINE — test","body":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
 {"at":"2026-05-03T11:34:26.831Z","to":"user@clms.local","subject":"[CLMS ALERT] OFFLINE — test","body":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
+{"at":"2026-05-03T13:54:05.070Z","to":"user@clms.local","subject":"[CLMS ALERT] OFFLINE — test","body":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
+{"at":"2026-05-03T16:26:06.339Z","to":"user@clms.local","subject":"[CLMS ALERT] OFFLINE — test","body":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
+{"at":"2026-05-03T16:35:59.373Z","to":"user1@clms.local","subject":"[CLMS ALERT] GEOFENCE — Phone1","body":"ALERT: Phone1 has LEFT the safe zone!"}
+{"at":"2026-05-03T16:36:42.983Z","to":"user1@clms.local","subject":"[CLMS ALERT] GEOFENCE — Phone1","body":"ALERT: Phone1 has LEFT the safe zone!"}
+{"at":"2026-05-03T16:42:06.430Z","to":"user@clms.local","subject":"[CLMS ALERT] OFFLINE — test","body":"Device \"test\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
+{"at":"2026-05-03T16:42:06.438Z","to":"user1@clms.local","subject":"[CLMS ALERT] OFFLINE — Phone1","body":"Device \"Phone1\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
+{"at":"2026-05-06T08:20:22.038Z","to":"user1@clms.local","subject":"[CLMS ALERT] OFFLINE — Phone1","body":"Device \"Phone1\" has not sent a location update for more than 5 minutes. It may be offline or out of coverage."}
